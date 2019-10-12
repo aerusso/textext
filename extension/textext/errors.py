@@ -1,7 +1,9 @@
 
 class TexTextError(RuntimeError):
     """ Basic class of all TexText errors"""
-    pass
+    def __init__(self, message):
+        super(TexTextError,self).__init__()
+        self.message = message
 
 
 class TexTextNonFatalError(TexTextError):
