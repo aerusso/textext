@@ -32,8 +32,8 @@ before_script:
    - wget -c https://inkscape.org/de/gallery/item/14204/Inkscape-883c7bc-x86_64.AppImage -O ~/bin/inkscape.alpha
    - chmod +x ~/bin/inkscape.alpha
    - export PATH=~/bin:$PATH
-   - python test_installation_script.py 2> /dev/null
-   - python setup.py
+   - python3 test_installation_script.py 2> /dev/null
+   - python3 setup.py
 
 
 script:
@@ -68,7 +68,7 @@ after_success:
 
 before_deploy:
   - bash build_docs.sh
-  - python build_packages.py
+  - python3 build_packages.py
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
 

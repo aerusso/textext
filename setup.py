@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 import argparse
@@ -57,25 +57,6 @@ def query_yes_no(question, default="yes"):
         else:
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
-
-
-class TemporaryDirectory(object):
-    """ Mimic tempfile.TemporaryDirectory from python3 """
-    def __init__(self):
-        self.dir_name = None
-
-    def __enter__(self):
-        self.dir_name = tempfile.mkdtemp("textext_")
-        return self.dir_name
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-
-        def retry_with_chmod(func, path, exec_info):
-            os.chmod(path, stat.S_IWRITE)
-            func(path)
-
-        if self.dir_name:
-            shutil.rmtree(self.dir_name, onerror=retry_with_chmod)
 
 
 class StashFiles(object):
@@ -380,7 +361,7 @@ if __name__ == "__main__":
         if not args.keep_previous_installation_files:
             files_to_keep = {}
 
-        with TemporaryDirectory() as tmp_dir, \
+        with tempfile.TemporaryDirectory() as tmp_dir, \
                 StashFiles(stash_from=args.inkscape_extensions_path,
                            rel_filenames=files_to_keep,
                            tmp_dir=tmp_dir
